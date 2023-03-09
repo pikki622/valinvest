@@ -186,11 +186,11 @@ class Fundamental:
         url = BETA_API_URL.format(ticker=self.ticker, apikey=self.apikey)
         res = requests.get(url).json()
 
-        beta = float("inf")
-        if res["profile"]["beta"]:
-            beta = float(res["profile"]["beta"])
-
-        return beta
+        return (
+            float(res["profile"]["beta"])
+            if res["profile"]["beta"]
+            else float("inf")
+        )
 
     @property
     def eps_growth(self):
